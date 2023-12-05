@@ -12,7 +12,6 @@ import javax.servlet.http.HttpSession;
 public class UsuarioDAO {
     private static final String INSERIR_USUARIO = "INSERT INTO usuario (nome, cpf, email, senha, telefone) VALUES (?, ?, ?, ?, ?)";
     private static final String BUSCAR_SENHA_POR_EMAIL = "SELECT senha FROM usuario WHERE email = ?";
-    private static final String BUSCAR_USER_POR_CPF = "SELECT cpf FROM usuario WHERE email = ?";
     private static final String SOMA_TRANSACOES = "SELECT u.cpf AS usuario_cpf, COALESCE(SUM(t.valor), 0) AS saldo_atual FROM usuario u LEFT JOIN transacoes t ON u.cpf = t.cpf_usuario WHERE u.cpf = ?";
 
    

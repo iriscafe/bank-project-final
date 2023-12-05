@@ -1,6 +1,5 @@
 package com.example.dao;
 
-import com.example.model.Transacao;
 import com.example.model.Usuario;
 import com.example.util.ConnectionFactory;
 import java.sql.Connection;
@@ -13,7 +12,6 @@ import java.util.List;
 public class AdminDAO {
     private static final String INSERIR_ADMIN = "INSERT INTO admin (nome, cpf, email, senha, telefone, admin) VALUES (?, ?, ?, ?, ?, true)";
     private static final String LISTAR_USUARIOS = "SELECT * FROM usuario";
-    private static final String EDITAR_USUARIO = "UPDATE admin SET nome=?, email=?, senha=? WHERE cpf=?";
     private static final String EXCLUIR_USUARIO = "DELETE FROM usuario WHERE cpf = ?";
 
     public boolean inserirAdmin(String nome, String cpf, String email, String senha, String telefone) {
