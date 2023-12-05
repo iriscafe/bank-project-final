@@ -9,7 +9,6 @@
         <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
 
-    <!-- Configuração do filtro de codificação -->
     <filter>
         <filter-name>encoding-filter</filter-name>
         <filter-class>org.apache.catalina.filters.SetCharacterEncodingFilter</filter-class>
@@ -25,7 +24,6 @@
         <url-pattern>/*</url-pattern>
     </filter-mapping>
 
-    <!-- Mapeamento da página admin.jsp -->
     <servlet>
         <servlet-name>AdminPage</servlet-name>
         <jsp-file>/admin.jsp</jsp-file>
@@ -36,7 +34,6 @@
         <url-pattern>/admin</url-pattern>
     </servlet-mapping>
 
-    <!-- Mapeamento da página user.jsp -->
     <servlet>
         <servlet-name>UserPage</servlet-name>
         <jsp-file>/user.jsp</jsp-file>
@@ -47,20 +44,16 @@
         <url-pattern>/user</url-pattern>
     </servlet-mapping>
 
-    <!-- Mapeamento do servlet UsuarioServlet -->
     <servlet>
-        <servlet-name>UsuarioServlet</servlet-name>
-        <servlet-class>com.example.servlets.UsuarioServlet</servlet-class>
+        <servlet-name>TransacaoServlet</servlet-name>
+        <servlet-class>com.example.servlets.TransacaoServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>
-        <servlet-name>UsuarioServlet</servlet-name>
-        <url-pattern>/usuario</url-pattern> <!-- Ajuste o padrão conforme necessário -->
+        <servlet-name>TransacaoServlet</servlet-name>
+        <url-pattern>/Transacao</url-pattern> 
     </servlet-mapping>
 
-
-
-    <!-- Mapeamento do servlet AutenticaController -->
     <servlet>
         <servlet-name>AutenticaController</servlet-name>
         <servlet-class>com.example.servlets.AutenticaController</servlet-class>
@@ -68,11 +61,9 @@
 
     <servlet-mapping>
         <servlet-name>AutenticaController</servlet-name>
-        <url-pattern>/autentica</url-pattern><!-- Ajuste o padrão conforme necessário -->
+        <url-pattern>/autentica</url-pattern>
     </servlet-mapping>
 
-
-    <!-- Mapeamento do servlet ProcessaCadastroServlet -->
     <servlet>
         <servlet-name>ProcessaCadastroServlet</servlet-name>
         <servlet-class>com.example.servlets.ProcessaCadastroServlet</servlet-class>

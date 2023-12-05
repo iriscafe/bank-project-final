@@ -117,20 +117,17 @@
                 
                     <form action="ProcessaEditarUsuario" method="post">
                         <div class="form-group">
-                            <label for="cpfEditar">CPF do Usuário:</label>
-                            <input type="text" class="form-control" name="cpfEditar" required>
+                            <label for="cpf">CPF do Usuário:</label>
+                            <input type="text" class="form-control" name="cpf" required>
+                        </div>
+                        <br><label for="campoEditar">Campo a Editar:</label><br>
+                        <div class="form-group">
+                            <label for="novoNome">Novo Nome:</label>
+                            <input type="text" class="form-control" name="novoNome">
                         </div>
                         <div class="form-group">
-                            <label for="campoEditar">Campo a Editar:</label>
-                            <select class="form-control" name="campoEditar" required>
-                                <option value="nome">Nome</option>
-                                <option value="email">E-mail</option>
-                                <!-- Adicione outras opções para campos adicionais -->
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="novoValor">Novo Valor:</label>
-                            <input type="text" class="form-control" name="novoValor" required>
+                            <label for="novoEmail">Novo E-mail:</label>
+                            <input type="text" class="form-control" name="novoEmail">
                         </div>
                 
                         <button type="submit" class="btn btn-primary">Editar Usuário</button>

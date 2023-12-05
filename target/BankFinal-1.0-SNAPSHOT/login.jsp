@@ -33,7 +33,6 @@
                                             <label for="senha">Senha:</label>
                                             <input type="password" class="form-control" name="senha" id="senha"
                                                 placeholder="Insira a senha" required>
-                                            <input type="radio" name="adm" id="adm" value="adm" /> Administrador <br>
                                             <% if (request.getAttribute("mensagemErro") !=null) { %>
                                                 <div class="alert alert-danger" role="alert">
                                                     <%= request.getAttribute("mensagemErro") %>

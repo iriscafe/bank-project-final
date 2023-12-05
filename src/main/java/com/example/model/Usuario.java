@@ -3,11 +3,11 @@ package com.example.model;
 import javax.servlet.http.HttpSession;
 
 public class Usuario {
-    private String nome;
-    private String cpf;
-    private String email;
-    private String senha;
-    private String telefone;
+    public String nome;
+    public String cpf;
+    public String email;
+    public String senha;
+    public String telefone;
 
     private static final String USUARIO_ID_SESSION_KEY = "usuarioId";
     private static final String USUARIO_CPF_SESSION_KEY = "usuarioCpf";

@@ -18,13 +18,11 @@ public class ProcessaCadastroServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // Tratar solicitações GET se necessário
         processRequest(request, response);
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // Tratar solicitações POST
         processRequest(request, response);
     }
 
@@ -36,10 +34,8 @@ public class ProcessaCadastroServlet extends HttpServlet {
         String senha = request.getParameter("senha");
         String telefone = request.getParameter("telefone");
 
-        // Inserir usuário no banco de dados
         boolean cadastroSucesso = usuarioDAO.inserirUsuario(nome, cpf, email, senha, telefone);
 
-        // Exemplo de resposta para o usuário
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             if (cadastroSucesso) {

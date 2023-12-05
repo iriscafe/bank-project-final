@@ -12,32 +12,48 @@ import javax.servlet.RequestDispatcher;
 import com.example.dao.UsuarioDAO;
 import com.example.model.Usuario;
 
-@WebServlet(name = "ProcessaEditarUsuario", urlPatterns = {"/ProcessaEditarUsuario"})
+@WebServlet(name = "ProcessaEditarUsuario", urlPatterns = { "/ProcessaEditarUsuario" })
 public class ProcessaEditarUsuario extends HttpServlet {
-    // ...
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String cpfEditar = request.getParameter("cpfEditar");
+        String cpf = request.getParameter("cpf");
+        String novoNome = request.getParameter("novoNome");
+        String novoEmail = request.getParameter("novoEmail");
 
-        // Buscar detalhes do usuário pelo CPF
-        UsuarioDAO usuarioDAO = new UsuarioDAO();
-        Usuario usuario = usuarioDAO.getUsuarioByCPF(cpfEditar);
+        if (cpf != null && (novoNome != null || novoEmail != null)) {
+            UsuarioDAO usuarioDAO = new UsuarioDAO();
+            Usuario usuario = usuarioDAO.getUsuarioByCPF(cpf);
 
-        if (usuario != null) {
-            // Exibir os detalhes do usuário no JSP
-            request.setAttribute("nomeUsuario", usuario.getNome());
-            request.setAttribute("emailUsuario", usuario.getEmail());
-            request.setAttribute("cpfUsuario", usuario.getCpf());
-
-            // Mostrar o formulário de edição
-            request.setAttribute("detalhesUsuario", true);
+            if (usuario != null) {
+                if (novoNome != null) {
+                    usuario.setNome(novoNome);
+                    boolean sucesso = usuarioDAO.editarNomeUsuario(cpf, novoNome);
+                    if (sucesso) {
+                        response.sendRedirect("admin.jsp");
+                        return;
+                    } else {
+                        request.setAttribute("mensagemErro", "Falha na atualização do nome do usuário.");
+                    }
+                } else if (novoEmail != null) {
+                    usuario.setEmail(novoEmail);
+                    boolean sucesso = usuarioDAO.editarEmailUsuario(cpf, novoEmail);
+                    if (sucesso) {
+                        response.sendRedirect("admin.jsp");
+                        return;
+                    } else {
+                        request.setAttribute("mensagemErro", "Falha na atualização do e-mail do usuário.");
+                    }
+                }
+            } else {
+                request.setAttribute("mensagemErro", "Usuário não encontrado.");
+            }
         } else {
-            // Usuário não encontrado, mostrar mensagem de erro
-            request.setAttribute("mensagemErro", "Usuário não encontrado.");
+            request.setAttribute("mensagemErro", "Parâmetros ausentes.");
         }
 
         RequestDispatcher dispatcher = request.getRequestDispatcher("/admin.jsp");
         dispatcher.forward(request, response);
     }
+
 }
