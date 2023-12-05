@@ -36,7 +36,6 @@ public class TransacaoDAO {
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {
                     Transacao transacao = new Transacao();
-                    transacao.setId(resultSet.getInt("id"));
                     transacao.setCpfUsuario(resultSet.getString("cpf_usuario"));
                     transacao.setTipo(resultSet.getString("tipo"));
                     transacao.setValor(resultSet.getDouble("valor"));

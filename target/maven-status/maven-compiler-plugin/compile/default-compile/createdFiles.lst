@@ -1,0 +1,12 @@
+com\example\servlets\ProcessaCadastroServlet.class
+com\example\servlets\UsuarioServlet.class
+com\example\dao\UsuarioDAO.class
+com\example\util\ConnectionFactory.class
+com\example\servlets\ProcessaExcluirUsuarioServlet.class
+com\example\servlets\AutenticaController.class
+com\example\dao\TransacaoDAO.class
+com\example\dao\AdminDAO.class
+com\example\model\Transacao.class
+com\example\servlets\ProcessaEditarUsuario.class
+com\example\model\Usuario.class
+com\example\servlets\ProcessaCadastroAdminServlet.class

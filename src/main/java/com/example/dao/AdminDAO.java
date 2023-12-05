@@ -1,61 +1,80 @@
 package com.example.dao;
 
+import com.example.model.Transacao;
+import com.example.model.Usuario;
 import com.example.util.ConnectionFactory;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class AdminDAO {
-    private static final String INSERIR_ADMIN = "INSERT INTO admin (nome, email, senha) VALUES (?, ?, ?)";
+    private static final String INSERIR_ADMIN = "INSERT INTO admin (nome, cpf, email, senha, telefone, admin) VALUES (?, ?, ?, ?, ?, true)";
+    private static final String LISTAR_USUARIOS = "SELECT * FROM usuario";
     private static final String EDITAR_USUARIO = "UPDATE admin SET nome=?, email=?, senha=? WHERE cpf=?";
-    private static final String DELETAR_USUARIO = "DELETE FROM admin WHERE cpf=?";
+    private static final String EXCLUIR_USUARIO = "DELETE FROM usuario WHERE cpf = ?";
 
-    public boolean inserirAdmin(String nome, String email, String senha) {
+    public boolean inserirAdmin(String nome, String cpf, String email, String senha, String telefone) {
         try (Connection connection = ConnectionFactory.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(INSERIR_ADMIN)) {
+            PreparedStatement preparedStatement = connection.prepareStatement(INSERIR_ADMIN)) {
 
             preparedStatement.setString(1, nome);
-            preparedStatement.setString(2, email);
-            preparedStatement.setString(3, senha);
-
-            preparedStatement.executeUpdate();
-
-            return true;
-
-        } catch (SQLException e) {
-            throw new RuntimeException("Erro ao inserir administrador no banco de dados", e);
-        }
-    }
-
-    public boolean editarUsuario(int id, String novoNome, String novoEmail, String novaSenha) {
-        try (Connection connection = ConnectionFactory.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(EDITAR_USUARIO)) {
-
-            preparedStatement.setString(1, novoNome);
-            preparedStatement.setString(2, novoEmail);
-            preparedStatement.setString(3, novaSenha);
-            preparedStatement.setInt(4, id);
+            preparedStatement.setString(2, cpf);
+            preparedStatement.setString(3, email);
+            preparedStatement.setString(4, senha);
+            preparedStatement.setString(5, telefone);
 
             int linhasAfetadas = preparedStatement.executeUpdate();
 
             return linhasAfetadas > 0;
 
         } catch (SQLException e) {
-            throw new RuntimeException("Erro ao editar usuário no banco de dados", e);
+            e.printStackTrace();
+            return false;
         }
     }
-    public boolean deletarUsuario(int id) {
-        try (Connection connection = ConnectionFactory.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(DELETAR_USUARIO)) {
+    public List<Usuario> listarUsuarios() {
+        List<Usuario> usuarios = new ArrayList<>();
 
-            preparedStatement.setInt(1, id);
+        try (Connection connection = ConnectionFactory.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(LISTAR_USUARIOS)) {
+
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    Usuario usuario = new Usuario(
+                            resultSet.getString("nome"),
+                            resultSet.getString("cpf"),
+                            resultSet.getString("email"),
+                            resultSet.getString("senha"),
+                            resultSet.getString("telefone")
+                    );
+                    usuarios.add(usuario);
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return usuarios;
+    }
+    public boolean excluirUsuario(String cpf) {
+        try (Connection connection = ConnectionFactory.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(EXCLUIR_USUARIO)) {
+
+            preparedStatement.setString(1, cpf);
 
             int linhasAfetadas = preparedStatement.executeUpdate();
 
             return linhasAfetadas > 0;
 
         } catch (SQLException e) {
-            throw new RuntimeException("Erro ao deletar usuário no banco de dados", e);
+            e.printStackTrace();
+            return false;
         }
     }
+
+
 }

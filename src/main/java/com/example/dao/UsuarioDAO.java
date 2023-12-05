@@ -1,5 +1,6 @@
 package com.example.dao;
 
+import com.example.model.Usuario;
 import com.example.util.ConnectionFactory;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -20,12 +21,9 @@ public class UsuarioDAO {
             preparedStatement.setString(5, telefone);
     
             int linhasAfetadas = preparedStatement.executeUpdate();
-    
-            // Retorna true se pelo menos uma linha foi afetada, indicando sucesso na inserção
             return linhasAfetadas > 0;
     
         } catch (SQLException e) {
-            // Loga ou trata a exceção, se necessário
             e.printStackTrace();
             return false;
         }
@@ -48,5 +46,10 @@ public class UsuarioDAO {
         }
         return null;
     }
+    public Usuario getUsuarioByCPF(String cpfEditar) {
+        return null;
+    }
+
+    
 }
 

@@ -9,7 +9,7 @@
     <link href="style/style.css" rel="stylesheet">
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-ligth bg-ligth">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container">
             <a class="navbar-brand text-center ms-2" href="index.html">
                 <img src="https://media.discordapp.net/attachments/963533169708134463/1166479547840090203/OIG.51t5Dx_P0SKgz-removebg-preview.png" width="50px">
@@ -22,16 +22,12 @@
 
     <div class="container mt-4">
         <h2>Área do Usuário</h2>
-
         <!-- Opções CRUD para dinheiro -->
         <div class="row mt-4">
             <div class="col-md-3">
                 <h4>Opções:</h4>
                 <ul class="list-group">
-                    <li class="list-group-item"><a href="#">Ver Saldo</a></li>
-                    <li class="list-group-item"><a href="#">Depositar</a></li>
-                    <li class="list-group-item"><a href="#">Sacar</a></li>
-                    <li class="list-group-item"><a href="#">Transferir</a></li>
+                    <li class="list-group-item"><a href="#">Ver Transações</a></li>
                 </ul>
             </div>
             <div class="col-md-9">
@@ -39,10 +35,10 @@
                 <!-- Exemplo: -->
                 <div class="mb-3">
                     <h5>Saldo Disponível:</h5>
-                    <p>R$ 1000,00</p>
+                    <p>R$ ${saldo}</p>
                 </div>
                 <!-- Formulário para depósito -->
-                <form action="ProcessaTransacaoController" method="post">
+                <form action="ProcessaTransacao?acao=depositar" method="post">
                     <div class="mb-3">
                         <label for="valor">Valor:</label>
                         <input type="text" class="form-control" name="valor" id="valor" placeholder="Informe o valor">
@@ -50,7 +46,7 @@
                     <button type="submit" class="btn btn-success">Depositar</button>
                 </form>
                 <!-- Formulário para saque -->
-                <form action="ProcessaTransacaoController" method="post">
+                <form action="ProcessaTransacao?acao=sacar" method="post">
                     <div class="mb-3">
                         <label for="valorSaque">Valor:</label>
                         <input type="text" class="form-control" name="valorSaque" id="valorSaque" placeholder="Informe o valor">

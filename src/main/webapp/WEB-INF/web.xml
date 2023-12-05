@@ -83,6 +83,42 @@
         <url-pattern>/ProcessaCadastroServlet</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>ProcessaCadastroAdminServlet</servlet-name>
+        <servlet-class>com.example.servlets.ProcessaCadastroAdminServlet</servlet-class>
+    </servlet>
 
+    <servlet-mapping>
+        <servlet-name>ProcessaCadastroAdminServlet</servlet-name>
+        <url-pattern>/ProcessaCadastroAdmin</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>ProcessaEditarUsuario</servlet-name>
+        <servlet-class>com.example.servlets.ProcessaEditarUsuario</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>ProcessaEditarUsuario</servlet-name>
+        <url-pattern>/ProcessaEditarUsuario</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ProcessaExcluirUsuarioServlet</servlet-name>
+        <servlet-class>com.example.servlets.ProcessaExcluirUsuarioServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ProcessaExcluirUsuarioServlet</servlet-name>
+        <url-pattern>/ProcessaExcluirUsuario</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ProcessaTransacaoController</servlet-name>
+        <servlet-class>com.example.servlets.ProcessaTransacaoController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ProcessaTransacaoController</servlet-name>
+        <url-pattern>/ProcessaTransacao</url-pattern>
+    </servlet-mapping>
     
 </web-app>
