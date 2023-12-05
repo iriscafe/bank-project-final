@@ -80,8 +80,8 @@
                 <!-- Formulário para saque -->
                 <form action="ProcessaTransacao?acao=sacar" method="post">
                     <div class="mb-3">
-                        <label for="valorSaque">Valor:</label>
-                        <input type="text" class="form-control" name="valorSaque" id="valorSaque" placeholder="Informe o valor" required>
+                        <label for="valor">Valor:</label>
+                        <input type="text" class="form-control" name="valor" id="valor" placeholder="Informe o valor" required>
                     </div>
                     <button type="submit" class="btn btn-warning">Sacar</button>
                 </form>

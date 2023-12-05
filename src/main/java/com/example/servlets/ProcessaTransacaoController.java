@@ -16,19 +16,19 @@ public class ProcessaTransacaoController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
-        String cpf = Usuario.getCPFUsuario(session);
+        String cpf = Usuario.getCPFUsuario(session); 
 
         String acao = request.getParameter("acao");
         double valor = Double.parseDouble(request.getParameter("valor"));
 
         TransacaoDAO transacaoDAO = new TransacaoDAO();
-
+        
         switch (acao) {
             case "depositar":
                 transacaoDAO.inserirTransacao("Depósito", valor, cpf);
                 break;
             case "sacar":
-                transacaoDAO.inserirTransacao("Saque", -valor, cpf);
+                transacaoDAO.inserirTransacao("Saque", -valor, cpf); 
                 break;
             default:
                 break;
