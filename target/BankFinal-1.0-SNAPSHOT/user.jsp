@@ -1,8 +1,26 @@
 <%@ page import="java.util.List" %>
-<%@ page import="com.example.model.Transacao" %>
-<%@ page import="com.example.dao.TransacaoDAO" %>
 <%@ page import="com.example.dao.UsuarioDAO" %>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="com.example.dao.TransacaoDAO" %>
+<%@ page import="com.example.model.Usuario" %>
+<%@ page import="com.example.model.Transacao" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%
+    // Obtém o email do usuário da sessão ou de onde quer que você o tenha
+    String emailString = "teste@teste.com";
+
+    // Cria instâncias dos DAOs necessários
+    UsuarioDAO usuarioDAO = new UsuarioDAO();
+    TransacaoDAO transacaoDAO = new TransacaoDAO();
+
+    // Obtém o CPF do usuário usando o DAO
+    String cpfUsuario = usuarioDAO.getCPFByEmail(emailString);
+
+    // Obtém o histórico de transações do usuário
+    List<Transacao> historicoTransacoes = transacaoDAO.obterHistorico(cpfUsuario);
+    Double saldo = transacaoDAO.saldoTransacoes(cpfUsuario);
+    
+    
+%>
 <!DOCTYPE html>
 <html lang="pt-br"> 
 <head>
@@ -32,8 +50,10 @@
                 <h4>Opções:</h4>
                 <ul class="list-group">
                     <li class="list-group-item"><a href="#" id="linkVerTransacoes">Ver Transações</a></li>
+                    <li class="list-group-item"><a href="#" id="linkVerSaldo">Ver Saldo</a></li>
                 </ul>
             </div>
+            
             <div class="col-md-9">
                 <!-- Conteúdo dinâmico aqui -->
                 <div id="painelTransacao" class="painel" style="display:none;">
@@ -50,29 +70,22 @@
                         </thead>
                         <!-- Corpo da tabela preenchido dinamicamente com Java -->
                         <tbody id="corpoTabelaTransacoes">
-                            <%
-                                UsuarioDAO usuarioDAO = new UsuarioDAO();
-                                TransacaoDAO transacaoDAO = new TransacaoDAO();
-                                String emailString = "teste@teste.com";
-                                String cpf = usuarioDAO.getCPFByEmail(emailString);
-                                List<Transacao> historicoTransacoes = transacaoDAO.obterHistorico(cpf);
-
-                                for (Transacao transacao : historicoTransacoes) {
-                            %>
-                            <tr>
-                                <td><%= transacao.getTipo() %></td>
-                                <td><%= transacao.getValor() %></td>
-                                <td><%= transacao.getData() %></td>
-                                <td><%= transacao.getCPF() %></td>
-                            </tr>
+                            <% for (Transacao transacao : historicoTransacoes) { %>
+                                <tr>
+                                    <td><%= transacao.getTipo() %></td>
+                                    <td><%= transacao.getValor() %></td>
+                                    <td><%= transacao.getData() %></td>
+                                    <td><%= transacao.getCPF() %></td>
+                                </tr>
                             <% } %>
                         </tbody>
                     </table>
                 </div>
                 <!-- Formulário para depósito -->
+                <h4>Seu saldo é: <span id="saldoValue"><%= saldo %></span></h4>
                 <form action="ProcessaTransacao?acao=depositar" method="post">
                     <div class="mb-3">
-                        <label for="valor">Valor:</label>
+                        <label for="valor">Depósito:</label>
                         <input type="text" class="form-control" name="valor" id="valor" placeholder="Informe o valor" required>
                     </div>
                     <button type="submit" class="btn btn-success">Depositar</button>
@@ -80,7 +93,7 @@
                 <!-- Formulário para saque -->
                 <form action="ProcessaTransacao?acao=sacar" method="post">
                     <div class="mb-3">
-                        <label for="valor">Valor:</label>
+                        <label for="valor">Saque:</label>
                         <input type="text" class="form-control" name="valor" id="valor" placeholder="Informe o valor" required>
                     </div>
                     <button type="submit" class="btn btn-warning">Sacar</button>
@@ -102,7 +115,14 @@
             toggleTabelaTransacoes();
         });
     </script>
-
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var saldoSpan = document.getElementById("saldoValue");
+            var saldo = parseFloat(saldoSpan.textContent);
+    
+            console.log("Saldo:", saldo);
+        });
+    </script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

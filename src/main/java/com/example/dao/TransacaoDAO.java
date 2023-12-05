@@ -13,6 +13,7 @@ import com.example.util.ConnectionFactory;
 public class TransacaoDAO {
 
     private static final String INSERIR_TRANSACAO = "INSERT INTO transacao (tipo, valor, cpf) VALUES (?, ?, ?)";
+    private static final String SOMA_TRANSICOES = "SELECT SUM(valor) AS soma FROM transacao WHERE cpf = ?";
 
     public void inserirTransacao(String tipo, double valor, String cpf) {
         try (Connection connection = ConnectionFactory.getConnection();
@@ -27,6 +28,25 @@ public class TransacaoDAO {
         } catch (SQLException e) {
             throw new RuntimeException("Erro ao inserir transação no banco de dados", e);
         }
+    }
+
+    public double saldoTransacoes (String cpf){
+        try (Connection connection = ConnectionFactory.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SOMA_TRANSICOES)) {
+
+            preparedStatement.setString(1, cpf);
+
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    return resultSet.getDouble("soma");
+                }
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao calcular a soma das transações", e);
+        }
+
+        return 0.0;
     }
 
     public List<Transacao> obterHistorico(String cpf) {
