@@ -23,7 +23,6 @@ public class AutenticaController extends HttpServlet {
         if ("Logout".equals(acao)) {
             encerrarSessao(request, response);
         } else {
-            // Não há necessidade de mensagemErro aqui, já que está redirecionando para a página de login
             RequestDispatcher dispatcher = request.getRequestDispatcher("login.jsp");
             dispatcher.forward(request, response);
         }
@@ -60,6 +59,16 @@ public class AutenticaController extends HttpServlet {
             RequestDispatcher dispatcher = request.getRequestDispatcher("login.jsp");
             dispatcher.forward(request, response);
         }
+    }
+
+    public String getEmailUsuarioLogado(HttpSession session) {
+        if (session != null) {
+            Object emailObj = session.getAttribute("email");
+            if (emailObj instanceof String) {
+                return (String) emailObj;
+            }
+        }
+        return null;
     }
 
     private boolean verificarCredenciais(String email, String senha) {

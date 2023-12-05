@@ -31,9 +31,9 @@ public class TransacaoDAO {
 
     public List<Transacao> obterHistorico(String cpf) {
         List<Transacao> historico = new ArrayList<>();
-        String sql = "SELECT * FROM transacoes WHERE cpf = ?";
+        String sql = "SELECT * FROM transacao WHERE cpf = ?";
         try (Connection connection = ConnectionFactory.getConnection();
-                PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.setString(1, cpf);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {
@@ -41,6 +41,7 @@ public class TransacaoDAO {
                     transacao.setCpfUsuario(resultSet.getString("cpf"));
                     transacao.setTipo(resultSet.getString("tipo"));
                     transacao.setValor(resultSet.getDouble("valor"));
+                    transacao.setData(resultSet.getDate("data"));
                     historico.add(transacao);
                 }
             }
@@ -49,4 +50,5 @@ public class TransacaoDAO {
         }
         return historico;
     }
+    
 }

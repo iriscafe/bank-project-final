@@ -1,31 +1,37 @@
 package com.example.model;
 
 import java.sql.Date;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 
 public class Transacao {
 
-    private String cpfUsuario;
+    java.util.Date utilDate = new java.util.Date();
+    
+    SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+
     private String tipo;
     private double valor;
+    private Date data;
+    private String cpf;
 
     // Construtor vazio
     public Transacao() {
     }
 
     // Construtor com argumentos
-    public Transacao(String cpfUsuario, String tipo, double valor) {
-        this.cpfUsuario = cpfUsuario;
+    public Transacao(String tipo, double valor, Date data, String cpf) {
+
         this.tipo = tipo;
         this.valor = valor;
+        this.data = data;
+        this.cpf = cpf;
     }
 
     // Métodos Getter e Setter
-    public String getCpfUsuario() {
-        return cpfUsuario;
-    }
-
+    
     public void setCpfUsuario(String cpfUsuario) {
-        this.cpfUsuario = cpfUsuario;
+        this.cpf = cpfUsuario;
     }
 
     public String getTipo() {
@@ -44,6 +50,21 @@ public class Transacao {
         this.valor = valor;
     }
 
-    public void setData(Date date) {
+    public void setData(Date data) {
+        this.data = data;
+    }
+
+    public Date getData() {
+        return data;
+    }
+
+    public String getCPF() {
+        return cpf;
+    }
+    public String setCpf(String cpf) {
+        return cpf;
+    }
+
+    public void setData(LocalDateTime localDateTime) {
     }
 }

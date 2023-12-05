@@ -1,6 +1,10 @@
+<%@ page import="java.util.List" %>
+<%@ page import="com.example.model.Transacao" %>
+<%@ page import="com.example.dao.TransacaoDAO" %>
+<%@ page import="com.example.dao.UsuarioDAO" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-br"> 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -27,15 +31,45 @@
             <div class="col-md-3">
                 <h4>Opções:</h4>
                 <ul class="list-group">
-                    <li class="list-group-item"><a href="#">Ver Transações</a></li>
+                    <li class="list-group-item"><a href="#" id="linkVerTransacoes">Ver Transações</a></li>
                 </ul>
             </div>
             <div class="col-md-9">
                 <!-- Conteúdo dinâmico aqui -->
-                <!-- Exemplo: -->
-                <div class="mb-3">
-                    <h5>Saldo Disponível:</h5>
-                    <p>R$ ${saldo}</p>
+                <div id="painelTransacao" class="painel" style="display:none;">
+                    <h4>Visualizar Transacoes</h4>
+                    <table class="table" id="tabelaTransacoes">
+                        <!-- Cabeçalho da tabela -->
+                        <thead>
+                            <tr>
+                                <th>Tipo</th>
+                                <th>Valor</th>
+                                <th>Data</th>
+                                <th>CPF</th>
+                            </tr>
+                        </thead>
+                        <!-- Corpo da tabela preenchido dinamicamente com Java -->
+                        <tbody id="corpoTabelaTransacoes">
+                            <%
+                                UsuarioDAO usuarioDAO = new UsuarioDAO();
+                                TransacaoDAO transacaoDAO = new TransacaoDAO();
+                                String emailString = "teste@teste.com";
+                                String cpf = usuarioDAO.getCPFByEmail(emailString);
+                                List<Transacao> historicoTransacoes = transacaoDAO.obterHistorico(cpf);
+
+                                for (Transacao transacao : historicoTransacoes) {
+                            %>
+                            <tr>
+                                <td><%= transacao.getTipo() %></td>
+                                <td><%= transacao.getValor() %></td>
+                                <td><%= transacao.getData() %></td>
+                                <td><%= transacao.getCPF() %></td>
+                            </tr>
+                            <%
+                                }
+                            %>
+                        </tbody>
+                    </table>
                 </div>
                 <!-- Formulário para depósito -->
                 <form action="ProcessaTransacao?acao=depositar" method="post">
@@ -49,7 +83,7 @@
                 <form action="ProcessaTransacao?acao=sacar" method="post">
                     <div class="mb-3">
                         <label for="valorSaque">Valor:</label>
-                        <input type="text" class="form-control" name="valorSaque" id="valorSaque" placeholder="Informe o valor"required>
+                        <input type="text" class="form-control" name="valorSaque" id="valorSaque" placeholder="Informe o valor" required>
                     </div>
                     <button type="submit" class="btn btn-warning">Sacar</button>
                 </form>
@@ -60,6 +94,16 @@
     <div class="footer fixed-bottom">
         &copy; 2023 Sistema Bancário
     </div>
+    <script>
+        function toggleTabelaTransacoes() {
+            var tabela = document.getElementById("painelTransacao");
+            tabela.style.display = tabela.style.display === "none" ? "block" : "none";
+        }
+        document.getElementById("linkVerTransacoes").addEventListener("click", function (event) {
+            event.preventDefault();
+            toggleTabelaTransacoes();
+        });
+    </script>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
