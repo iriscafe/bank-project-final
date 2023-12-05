@@ -27,17 +27,16 @@ public class ProcessaCadastroAdminServlet extends HttpServlet {
         String nome = request.getParameter("nome");
         String cpf = request.getParameter("cpf");
         String email = request.getParameter("email");
-        String senha = request.getParameter("senha");
         String telefone = request.getParameter("telefone");
 
-        boolean cadastroSucesso = adminDAO.inserirAdmin(nome, cpf, email, senha, telefone);
+        boolean cadastroSucesso = adminDAO.inserirAdmin(nome, cpf, email, telefone);
 
         if (cadastroSucesso) {
             request.getSession().setAttribute("sucessoCadastro", "Usuário cadastrado com sucesso!");
-            response.sendRedirect(request.getContextPath() + "/PainelAdicionar.jsp");
+            response.sendRedirect(request.getContextPath() + "/admin.jsp");
         } else {
             request.getSession().setAttribute("erroCadastro", "Erro ao cadastrar usuário. Verifique os dados e tente novamente.");
-            response.sendRedirect(request.getContextPath() + "/PainelAdicionar.jsp");
+            response.sendRedirect(request.getContextPath() + "/admin.jsp");
         }
     }
 }

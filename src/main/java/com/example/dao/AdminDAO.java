@@ -10,19 +10,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AdminDAO {
-    private static final String INSERIR_ADMIN = "INSERT INTO admin (nome, cpf, email, senha, telefone, admin) VALUES (?, ?, ?, ?, ?, true)";
+    private static final String INSERIR_ADMIN = "INSERT INTO usuario (nome, cpf, email, senha, telefone, admin) VALUES (?, ?, ?, ?, ?, ?)";
     private static final String LISTAR_USUARIOS = "SELECT * FROM usuario";
     private static final String EXCLUIR_USUARIO = "DELETE FROM usuario WHERE cpf = ?";
 
-    public boolean inserirAdmin(String nome, String cpf, String email, String senha, String telefone) {
+    public boolean inserirAdmin(String nome, String cpf, String email, String telefone) {
         try (Connection connection = ConnectionFactory.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(INSERIR_ADMIN)) {
 
             preparedStatement.setString(1, nome);
             preparedStatement.setString(2, cpf);
             preparedStatement.setString(3, email);
-            preparedStatement.setString(4, senha);
+            preparedStatement.setString(4, "novaSenha123");
             preparedStatement.setString(5, telefone);
+            preparedStatement.setBoolean(6, true);
 
             int linhasAfetadas = preparedStatement.executeUpdate();
 

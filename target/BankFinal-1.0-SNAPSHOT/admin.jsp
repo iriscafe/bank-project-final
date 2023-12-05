@@ -73,46 +73,30 @@
                 
                 <div id="painelAdicionar" class="painel" style="display:none;">
                     <h4>Adicionar Usuário</h4>
-                    <%-- Verifica se há mensagem de sucesso --%>
-                    <% if (request.getAttribute("sucessoCadastro") != null) { %>
-                        <div class="alert alert-success" role="alert">
-                            <%= request.getAttribute("sucessoCadastro") %>
-                        </div>
-                    <% } %>
                 
-                    <%-- Verifica se há mensagem de erro --%>
-                    <% if (request.getAttribute("erroCadastro") != null) { %>
-                        <div class="alert alert-danger" role="alert">
-                            <%= request.getAttribute("erroCadastro") %>
-                        </div>
-                    <% } %>
                     <form action="ProcessaCadastroAdmin" method="post">
                         <div class="form-group">
                             <label for="nome">Nome:</label>
-                            <input type="text" class="form-control" name="nome" required>
+                            <input type="text" class="form-control" name="nome">
                         </div>
                         <div class="form-group">
                             <label for="cpf">CPF:</label>
-                            <input type="text" class="form-control" name="cpf" required>
+                            <input type="text" class="form-control" name="cpf">
                         </div>
                         <div class="form-group">
                             <label for="email">E-mail:</label>
-                            <input type="email" class="form-control" name="email" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="senha">Senha:</label>
-                            <input type="password" class="form-control" name="senha" required>
+                            <input type="text" class="form-control" name="email">
                         </div>
                         <div class="form-group">
                             <label for="telefone">Telefone:</label>
-                            <input type="text" class="form-control" name="telefone" required>
+                            <input type="text" class="form-control" name="telefone">
                         </div>
-                        <button type="submit" class="btn btn-primary">Adicionar Usuário</button>
+                
+                        <button type="submit" class="btn btn-primary">Cadastrar Admin</button>
                     </form>
                 </div>
                 
                 <div id="painelEditar" class="painel" style="display:none;">
-                    <!-- Conteúdo do painel de edição -->
                     <h4>Editar Usuário</h4>
                 
                     <form action="ProcessaEditarUsuario" method="post">
