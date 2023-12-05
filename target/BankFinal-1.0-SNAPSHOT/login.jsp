@@ -10,6 +10,16 @@
     </head>
 
     <body>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container">
+                <a class="navbar-brand text-center ms-2" href="index.jsp">
+                    <img src="https://media.discordapp.net/attachments/963533169708134463/1166479547840090203/OIG.51t5Dx_P0SKgz-removebg-preview.png" width="50px">
+                </a>
+                <div class="cadastro_entrar">
+                    <a href="cadastro.jsp" class="btn btn-primary">Abra já a sua conta</a>
+                </div>
+            </div>
+        </nav>
         <div class="container">
 
             <div class="container-fluid">

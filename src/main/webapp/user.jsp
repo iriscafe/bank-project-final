@@ -33,7 +33,7 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container">
-            <a class="navbar-brand text-center ms-2" href="index.jsp">
+            <a class="navbar-brand text-center ms-2" href="user.jsp">
                 <img src="https://media.discordapp.net/attachments/963533169708134463/1166479547840090203/OIG.51t5Dx_P0SKgz-removebg-preview.png" width="50px">
             </a>
             <div class="cadastro_entrar">

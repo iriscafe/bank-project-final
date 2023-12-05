@@ -18,7 +18,7 @@
                     width="50px">
             </a>
             <div class="cadastro_entrar">
-                <a href="AutenticaController?acao=Login" class="btn btn-secondary">Entrar</a>
+                <a href="login.jsp" class="btn btn-secondary">Entrar</a>
             </div>
         </div>
     </nav>
