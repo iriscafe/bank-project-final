@@ -1,3 +1,4 @@
+com\example\servlets\ProcessaTransacaoController.class
 com\example\servlets\ProcessaCadastroServlet.class
 com\example\servlets\UsuarioServlet.class
 com\example\dao\UsuarioDAO.class

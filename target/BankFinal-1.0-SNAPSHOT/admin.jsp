@@ -86,7 +86,7 @@
                             <%= request.getAttribute("erroCadastro") %>
                         </div>
                     <% } %>
-                    <form action="ProcessaCadastroAdminServlet" method="post">
+                    <form action="ProcessaCadastroAdmin" method="post">
                         <div class="form-group">
                             <label for="nome">Nome:</label>
                             <input type="text" class="form-control" name="nome" required>

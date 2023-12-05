@@ -28,6 +28,6 @@ public class ProcessaExcluirUsuarioServlet extends HttpServlet {
             request.getSession().setAttribute("erroExclusao", "Erro ao excluir usuário. Verifique o CPF e tente novamente.");
         }
 
-        response.sendRedirect(request.getContextPath() + "/PainelExcluir.jsp");
+        response.sendRedirect(request.getContextPath() + "/admin.jsp");
     }
 }

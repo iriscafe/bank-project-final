@@ -41,7 +41,7 @@
                 <form action="ProcessaTransacao?acao=depositar" method="post">
                     <div class="mb-3">
                         <label for="valor">Valor:</label>
-                        <input type="text" class="form-control" name="valor" id="valor" placeholder="Informe o valor">
+                        <input type="text" class="form-control" name="valor" id="valor" placeholder="Informe o valor" required>
                     </div>
                     <button type="submit" class="btn btn-success">Depositar</button>
                 </form>
@@ -49,7 +49,7 @@
                 <form action="ProcessaTransacao?acao=sacar" method="post">
                     <div class="mb-3">
                         <label for="valorSaque">Valor:</label>
-                        <input type="text" class="form-control" name="valorSaque" id="valorSaque" placeholder="Informe o valor">
+                        <input type="text" class="form-control" name="valorSaque" id="valorSaque" placeholder="Informe o valor"required>
                     </div>
                     <button type="submit" class="btn btn-warning">Sacar</button>
                 </form>

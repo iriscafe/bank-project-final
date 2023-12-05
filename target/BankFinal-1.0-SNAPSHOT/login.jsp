@@ -22,14 +22,7 @@
                         <div class="w-75 text-center">
                             <img src="https://media.discordapp.net/attachments/963533169708134463/1166479547840090203/OIG.51t5Dx_P0SKgz-removebg-preview.png"
                                 alt="Sua Descrição" class="img-fluid mb-3">
-                            <h2>Login</h2>
-
-                            <% String msgError=(String) request.getAttribute("msgError"); if ((msgError !=null) &&
-                                (!msgError.isEmpty())) {%>
-                                <div class="alert alert-danger" role="alert">
-                                    <%= msgError%>
-                                </div>
-                                <% }%>
+                                <h2>Login</h2>
                                     <form name="formLogin" action="autentica" method="POST" class="form">
                                         <div class="form-group">
                                             <label for="email">E-mail:</label>
@@ -38,13 +31,14 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="senha">Senha:</label>
-                                            <input type="password" class="form-control" name="senha" id="senha" placeholder="Insira a senha" required>
+                                            <input type="password" class="form-control" name="senha" id="senha"
+                                                placeholder="Insira a senha" required>
                                             <input type="radio" name="adm" id="adm" value="adm" /> Administrador <br>
-                                            <% if (request.getAttribute("mensagemErro") != null) { %>
+                                            <% if (request.getAttribute("mensagemErro") !=null) { %>
                                                 <div class="alert alert-danger" role="alert">
                                                     <%= request.getAttribute("mensagemErro") %>
                                                 </div>
-                                            <% } %>
+                                                <% } %>
                                         </div>
                                         <button type="submit" class="btn btn-danger btn-block">Entrar</button>
                                     </form>

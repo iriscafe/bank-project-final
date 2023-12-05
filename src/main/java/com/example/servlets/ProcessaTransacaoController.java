@@ -1,86 +1,39 @@
 package com.example.servlets;
 
-import com.example.dao.TransacaoDAO;
-import com.example.model.Transacao;
-
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import com.example.dao.TransacaoDAO;
+import com.example.model.Usuario;
 
 @WebServlet(name = "ProcessaTransacaoController", urlPatterns = { "/ProcessaTransacao" })
 public class ProcessaTransacaoController extends HttpServlet {
-
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        String cpf = Usuario.getCPFUsuario(session);
+
         String acao = request.getParameter("acao");
-        String valorStr = request.getParameter("valor");
-        valorStr = valorStr.replace(",", ".");
+        double valor = Double.parseDouble(request.getParameter("valor"));
 
-        try {
-            double valor = Double.parseDouble(valorStr);
-
-            // Chame a função para realizar o depósito ou saque
-            if ("depositar".equals(acao)) {
-                realizarDeposito(request, response, valor);
-            } else if ("sacar".equals(acao)) {
-                realizarSaque(request, response, valor);
-            } else {
-                // Ação desconhecida
-                response.sendRedirect("user.jsp");
-            }
-        } catch (NumberFormatException e) {
-            // Lide com o erro de formato inválido
-            e.printStackTrace(); // ou envie uma resposta de erro
-        }
-    }
-
-    private void realizarDeposito(HttpServletRequest request, HttpServletResponse response, double valor)
-            throws ServletException, IOException {
-        // Obter dados do usuário (pode precisar ajustar conforme sua lógica de autenticação)
-        String cpfUsuario = "obtenhaDeSessaoOuCasoNecessario";
-        String tipo = "Depósito";
-
-        // Criar objeto Transacao
-        Transacao transacao = new Transacao(cpfUsuario, tipo, valor);
-
-        // Realizar depósito
         TransacaoDAO transacaoDAO = new TransacaoDAO();
-        boolean sucesso = transacaoDAO.realizarTransacao(transacao);
 
-        if (sucesso) {
-            // Atualizar saldo no banco ou realizar outras operações necessárias
-            // Redirecionar para a página do usuário com uma mensagem de sucesso
-            response.sendRedirect("user.jsp?depositoSucesso=true");
-        } else {
-            // Tratar falha no depósito
-            response.sendRedirect("user.jsp?depositoSucesso=false");
+        switch (acao) {
+            case "depositar":
+                transacaoDAO.inserirTransacao("Depósito", valor, cpf);
+                break;
+            case "sacar":
+                transacaoDAO.inserirTransacao("Saque", -valor, cpf);
+                break;
+            default:
+                break;
         }
-    }
 
-    private void realizarSaque(HttpServletRequest request, HttpServletResponse response, double valor)
-            throws ServletException, IOException {
-        // Obter dados do usuário (pode precisar ajustar conforme sua lógica de autenticação)
-        String cpfUsuario = "obtenhaDeSessaoOuCasoNecessario";
-        String tipo = "Saque";
-
-        // Criar objeto Transacao
-        Transacao transacao = new Transacao(cpfUsuario, tipo, valor);
-
-        // Realizar saque
-        TransacaoDAO transacaoDAO = new TransacaoDAO();
-        boolean sucesso = transacaoDAO.realizarTransacao(transacao);
-
-        if (sucesso) {
-            // Atualizar saldo no banco ou realizar outras operações necessárias
-            // Redirecionar para a página do usuário com uma mensagem de sucesso
-            response.sendRedirect("user.jsp?saqueSucesso=true");
-        } else {
-            // Tratar falha no saque
-            response.sendRedirect("user.jsp?saqueSucesso=false");
-        }
+        response.sendRedirect("user.jsp");
     }
 }

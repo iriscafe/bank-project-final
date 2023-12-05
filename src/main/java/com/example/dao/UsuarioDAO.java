@@ -9,7 +9,9 @@ import java.sql.SQLException;
 
 public class UsuarioDAO {
     private static final String INSERIR_USUARIO = "INSERT INTO usuario (nome, cpf, email, senha, telefone) VALUES (?, ?, ?, ?, ?)";
-
+    private static final String BUSCAR_SENHA_POR_EMAIL = "SELECT senha FROM usuario WHERE email = ?";
+   private static final String BUSCAR_USER_POR_CPF = "SELECT cpf FROM usuario WHERE email = ?";
+   
     public boolean inserirUsuario(String nome, String cpf, String email, String senha, String telefone) {
         try (Connection connection = ConnectionFactory.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(INSERIR_USUARIO)) {
@@ -28,9 +30,25 @@ public class UsuarioDAO {
             return false;
         }
     }
+
+     public String getUserByCpf(String email) {
+        try (Connection connection = ConnectionFactory.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(BUSCAR_SENHA_POR_EMAIL)) {
+            preparedStatement.setString(1, email);
+
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    return resultSet.getString("cpf");
+                }
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao obter senha do usuário por e-mail", e);
+        }
+        return null;
+    }
     
-    private static final String BUSCAR_SENHA_POR_EMAIL = "SELECT senha FROM usuario WHERE email = ?";
-    public String getSenhaByEmail(String email) {
+     public String getSenhaByEmail(String email) {
         try (Connection connection = ConnectionFactory.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(BUSCAR_SENHA_POR_EMAIL)) {
             preparedStatement.setString(1, email);
@@ -47,6 +65,44 @@ public class UsuarioDAO {
         return null;
     }
     public Usuario getUsuarioByCPF(String cpfEditar) {
+        return null;
+    }
+
+	public int getIdUsuarioByEmail(String email) {
+        try (Connection connection = ConnectionFactory.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement("SELECT id FROM usuario WHERE email = ?")) {
+
+            preparedStatement.setString(1, email);
+
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    return resultSet.getInt("id");
+                }
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao obter ID do usuário por e-mail", e);
+        }
+
+        return 0;
+    }
+
+    public String getCPFByEmail(String email) {
+        try (Connection connection = ConnectionFactory.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement("SELECT cpf FROM usuario WHERE email = ?")) {
+
+            preparedStatement.setString(1, email);
+
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    return resultSet.getString("cpf");
+                }
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao obter CPF do usuário por e-mail", e);
+        }
+
         return null;
     }
 

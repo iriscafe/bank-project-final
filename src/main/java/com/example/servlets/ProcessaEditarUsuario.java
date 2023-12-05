@@ -37,7 +37,7 @@ public class ProcessaEditarUsuario extends HttpServlet {
             request.setAttribute("mensagemErro", "Usuário não encontrado.");
         }
 
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/Admin.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/admin.jsp");
         dispatcher.forward(request, response);
     }
 }
